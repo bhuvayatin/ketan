@@ -1,0 +1,83 @@
+<!-- extend base layout -->
+{% extends "appbuilder/base.html" %} {% block content %}
+
+<div class="container-fluid">
+  <div class="col-md-5 box">
+    <div class="flex justify-center items-center h-90">
+      <img
+        src="/static/assets/images/superset-logo-horiz.png"
+        class="login-logo"
+        alt="logo"
+      />
+    </div>
+  </div>
+  <div id="loginbox" style="margin-top: 50px" class="mainbox col-md-7">
+    <div
+      class="panel-primary flex justify-center items-center h-90 flex-column"
+    >
+      <div class="panel-heading">
+        <div class="panel-title"><h2>{{ title }}</h2></div>
+        <p style="margin-top:5px">Welcome, Please log in using your credintials below</p>
+      </div>
+      <div style="padding-top: 30px" class="panel-body">
+        <form class="form" action="" method="post" name="login">
+          {{form.hidden_tag()}}
+          <!-- <div class="help-block">{{_("Enter your login and password below")}}:</div> -->
+          <div
+            class="control-group{% if form.errors.openid is defined %} error{% endif %}"
+          >
+            <label class="control-label text-white" for="openid"
+              >{{_("Email")}}:</label
+            >
+            <div class="controls">
+              <div class="input-group" style="margin: 10px 0">
+                {{ form.username(size = 80, class = "form-control", autofocus =
+                true , placeholder="Enter your email address") }}
+              </div>
+              {% for error in form.errors.get('openid', []) %}
+              <span class="help-inline">[{{error}}]</span><br />
+              {% endfor %}
+             <div class="flex justify-between">
+                <label class="control-label text-white" for="openid"
+                >{{_("Password")}}:</label
+              >
+              <a href="#" class="text-white forget">Forgot password?</a>
+             </div>
+
+              <div class="input-group" style="margin: 10px 0">
+                {{ form.password(size = 80, class = "form-control",
+                placeholder="Enter your Password") }}
+              </div>
+              {% for error in form.errors.get('openid', []) %}
+              <span class="help-inline">[{{error}}]</span><br />
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="control-group">
+            <button
+              class="btn btn-block login"
+              type="submit"
+              value="{{_('Log In')}}"
+            >
+              <i class="fa fa-arrow-right" style="margin-right:5px"></i> log in {% if
+              appbuilder.sm.auth_user_registration %}
+            </button>
+            <a
+              href="{{appbuilder.sm.get_url_for_registeruser}}"
+              class="btn btn-block btn-primary"
+              data-toggle="tooltip"
+              rel="tooltip"
+              title="{{_('If you are not already a user, please register')}}"
+            >
+              {{_('Register')}}
+            </a>
+            {% endif %}
+          </div>
+        </form>
+      </div>
+      <p class="register"><i class="fa fa-phone" style="margin-right:5px"></i>Not registered yet? <a href="#" class="text-white">Talk to us</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}
